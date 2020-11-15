@@ -131,7 +131,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="HalloweenEntities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="HalloweenEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Categories" EntityType="Self.Category" />
     <EntitySet Name="Customers" EntityType="Self.Customer" />
     <EntitySet Name="Invoices" EntityType="Self.Invoice" />

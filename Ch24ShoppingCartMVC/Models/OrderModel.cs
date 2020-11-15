@@ -13,7 +13,7 @@ namespace Ch24ShoppingCartMVC.Models {
         //Implement GetAllProductsFromDataStore
         public List<Product> GetAllProductsFromDataStore()
         {    
-            using (HalloweenEntities1 data = new HalloweenEntities1())
+            using (HalloweenEntities data = new HalloweenEntities())
             {  //get all the products from the Collection Products order by name using HalloweenEntities
                 return data.Products.OrderBy(s=>s.Name).ToList() ;
             }
@@ -55,7 +55,7 @@ namespace Ch24ShoppingCartMVC.Models {
         
         public Product GetProductByIdFromDataStore(string id)
         {
-            using (HalloweenEntities1 data = new HalloweenEntities1())
+            using (HalloweenEntities data = new HalloweenEntities())
             {  //Get a product from Products of data where ProductID is matched with id parameter
                 return data.Products.Where(s=> s.ProductID==id).FirstOrDefault();
                 
@@ -80,10 +80,6 @@ namespace Ch24ShoppingCartMVC.Models {
                 return this.products.Where(s => s.ProductID == id).FirstOrDefault();
         }
               
-        
-        
-        
-        
         
     }
 }

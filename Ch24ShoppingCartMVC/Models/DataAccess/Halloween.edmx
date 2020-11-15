@@ -27,7 +27,7 @@
           <Property Name="PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\ATP2\ASDASD\HALLOWEEN.MDF.dbo.InvoiceData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'C:\ATP2\HALLOWEEN.MDF.dbo.InvoiceData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="InvoiceData">
           <Key>
             <PropertyRef Name="SalesTax" />
@@ -295,7 +295,7 @@ FROM [dbo].[InvoiceData] AS [InvoiceData]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="HalloweenEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="HalloweenEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Invoices" EntityType="Self.Invoice" />
@@ -325,7 +325,7 @@ FROM [dbo].[InvoiceData] AS [InvoiceData]</DefiningQuery>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="HalloweenModelStoreContainer" CdmEntityContainer="HalloweenEntities1">
+        <EntityContainerMapping StorageEntityContainer="HalloweenModelStoreContainer" CdmEntityContainer="HalloweenEntities">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="HalloweenModel.Category">
               <MappingFragment StoreEntitySet="Categories">
