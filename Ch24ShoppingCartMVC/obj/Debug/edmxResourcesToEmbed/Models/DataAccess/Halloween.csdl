@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HalloweenModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="HalloweenEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Products" EntityType="HalloweenModel.Product" />
+    <EntitySet Name="Categories" EntityType="HalloweenModel.Category" />
+    <EntitySet Name="Customers" EntityType="HalloweenModel.Customer" />
+    <EntitySet Name="Invoices" EntityType="HalloweenModel.Invoice" />
+    <EntitySet Name="LineItems" EntityType="HalloweenModel.LineItem" />
+    <EntitySet Name="States" EntityType="HalloweenModel.State" />
+    <EntitySet Name="InvoiceDatas" EntityType="HalloweenModel.InvoiceData" />
+    <AssociationSet Name="FK_Customers_States" Association="HalloweenModel.FK_Customers_States">
+      <End Role="State" EntitySet="States" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoices_Customers" Association="HalloweenModel.FK_Invoices_Customers">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Invoice" EntitySet="Invoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LineItems_Invoices" Association="HalloweenModel.FK_LineItems_Invoices">
+      <End Role="Invoice" EntitySet="Invoices" />
+      <End Role="LineItem" EntitySet="LineItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LineItems_Products" Association="HalloweenModel.FK_LineItems_Products">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="LineItem" EntitySet="LineItems" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="ShortDescription" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="LongDescription" Type="String" Nullable="false" MaxLength="2000" Unicode="false" FixedLength="false" />
+    <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="ImageFile" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="OnHand" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="LineItems" Relationship="HalloweenModel.FK_LineItems_Products" FromRole="Product" ToRole="LineItem" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ShortName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="LongName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="ZipCode" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="State1" Relationship="HalloweenModel.FK_Customers_States" FromRole="Customer" ToRole="State" />
+    <NavigationProperty Name="Invoices" Relationship="HalloweenModel.FK_Invoices_Customers" FromRole="Customer" ToRole="Invoice" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="InvoiceNumber" />
+    </Key>
+    <Property Name="InvoiceNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustEmail" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Subtotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="ShipMethod" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Shipping" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="SalesTax" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Total" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="CreditCardType" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CardNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ExpirationMonth" Type="Int16" Nullable="false" />
+    <Property Name="ExpirationYear" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="HalloweenModel.FK_Invoices_Customers" FromRole="Invoice" ToRole="Customer" />
+    <NavigationProperty Name="LineItems" Relationship="HalloweenModel.FK_LineItems_Invoices" FromRole="Invoice" ToRole="LineItem" />
+  </EntityType>
+  <EntityType Name="LineItem">
+    <Key>
+      <PropertyRef Name="InvoiceNumber" />
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="InvoiceNumber" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Extension" Type="Decimal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+    <NavigationProperty Name="Invoice" Relationship="HalloweenModel.FK_LineItems_Invoices" FromRole="LineItem" ToRole="Invoice" />
+    <NavigationProperty Name="Product" Relationship="HalloweenModel.FK_LineItems_Products" FromRole="LineItem" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="StateCode" />
+    </Key>
+    <Property Name="StateCode" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="StateName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Customers" Relationship="HalloweenModel.FK_Customers_States" FromRole="State" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="InvoiceData">
+    <Key>
+      <PropertyRef Name="SalesTax" />
+    </Key>
+    <Property Name="SalesTax" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+  </EntityType>
+  <Association Name="FK_Customers_States">
+    <End Type="HalloweenModel.State" Role="State" Multiplicity="1" />
+    <End Type="HalloweenModel.Customer" Role="Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="StateCode" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="State" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoices_Customers">
+    <End Type="HalloweenModel.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="HalloweenModel.Invoice" Role="Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="CustEmail" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LineItems_Invoices">
+    <End Type="HalloweenModel.Invoice" Role="Invoice" Multiplicity="1" />
+    <End Type="HalloweenModel.LineItem" Role="LineItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="InvoiceNumber" />
+      </Principal>
+      <Dependent Role="LineItem">
+        <PropertyRef Name="InvoiceNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LineItems_Products">
+    <End Type="HalloweenModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="HalloweenModel.LineItem" Role="LineItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="LineItem">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
